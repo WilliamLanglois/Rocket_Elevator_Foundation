@@ -1,0 +1,183 @@
+
+<%# <section>
+<h1>HELLO</h1>
+author_id<input class="basicInfos" name="author" id="author_id"  type="text" >
+customer_id<input class="basicInfos" name="customerID" id="customer_id"  type="text" >
+building_id<input class="basicInfos" name="buildingID" id="building_id"  type="text" >
+battery_id<input class="basicInfos" name="batteryID" id="battery_id"  type="text" >
+column_id<input class="basicInfos" name="columnID" id="column_id"  type="text" >
+elevator_id<input class="basicInfos" name="elevatorID" id="elevator_id"  type="text" >
+employee_id<input class="basicInfos" name="employeeID" id="employee_id"  type="text" >
+<br>intervention_start_time<input class="basicInfos" name="start_of_intervention" id="intervention_start_time"  type="text" >
+intervention_end_time<input class="basicInfos" name="end_of_intervention" id="intervention_end_time"  type="text" >
+result<input class="basicInfos" name="result_intervention" id="result"  type="text" >
+<br>report<input class="basicInfos" name="report_intervention" id="report"  type="text" >
+<br>status<input class="basicInfos" name="status_intervention" id="status"  type="text" >
+
+<br>customer<br>
+building<br>
+battery<br>
+column<br>
+employee<br>
+button submit<br>
+</section> %>
+<section></section>
+
+
+<%= form_tag "/intervention_create", method: 'post' do %>
+<section>
+<div class="col-md-12 mx-auto text-center text-blue offset-md-3">
+            	<%= form_with model: @customer do|form| %>
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name=customerID> Customer </label><br>
+                <%= form.select(:customer, Customer.all.collect {|c| [c.contact_full_name, c.id]}, {prompt: "Select Customer"}, {class: 'form-control'}) %><br>
+
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="buildingID">Building </label><br>
+                <%= form.select(:building, Building.all.collect {|b| [b.id, b.customer_id]},  {prompt: "Select Building"}, {class: 'form-control'}) %><br>
+                
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="battery_id">Battery </label><br>
+                <%= form.select(:battery, Battery.all.collect {|ba| [ba.id, ba.building_id]},  {prompt: "Select Battery"}, {class: 'form-control'}) %><br>
+
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="columnID">Column </label><br>
+                <%= form.select(:column, Column.all.collect {|co| [co.id, co.battery_id]},  {prompt: "Select Column"}, {class: 'form-control'}) %><br>
+
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="employeeID">Employee </label><br>
+                <%= form.select(:employee, Employee.all.collect {|e| [e.firstName, e.id]},  {prompt: "Select Employee"}, {class: 'form-control'}) %>
+
+                <br><br><br><input class="btn btn-danger btn-lg submitBtn submission_form" type="submit" value="Add intervention" />
+                <%end%>
+</section>
+<%end%>
+
+<Script>
+///////////////////////////////////////////////////////////////
+// BUILDING
+$("#building").prop("disabled", true); 
+    $("#customer").change(function(){
+        var customer = $(this).val();
+        if(customer == ''){
+            $("#building").prop("disabled", true);
+        }else{
+            $("#building").show()
+            $("#building").prop("disabled", false);
+        }
+        $.ajax({
+            url: "/interventions/building",
+            method: "GET",  
+            dataType: "json",
+            data: {customer: customer},
+            error: function (xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            },
+            success: function (response) {
+                console.log(response);
+                var building = response["building"];
+                $("#building").empty();
+                $("#building").append('<option> Select Building </option>');
+                for(var i = 0; i < building.length; i++){
+                    $("#building").append('<option value="' + building[i]["id"] + '">' + building[i]["id"] + ". " + building[i]["building_administrator_full_name"] + '</option>');
+                }
+            }
+        });
+    });
+
+///////////////////////////////////////////////////////////////
+// BATTERY
+    $("#battery").prop("disabled", true); 
+    $("#building").change(function(){
+        var customer = $(this).val();
+        if(customer == ''){
+            $("#battery").prop("disabled", true);
+        }else{
+            $("#battery").show()
+            $("#battery").prop("disabled", false);
+        }
+        $.ajax({
+            url: "/interventions/battery",
+            method: "GET",  
+            dataType: "json",
+            data: {customer: customer},
+            error: function (xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            },
+            success: function (response) {
+                console.log(response);
+                var battery = response["battery"];
+                $("#battery").empty();
+                $("#battery").append('<option> Select Battery </option>');
+                for(var i = 0; i < battery.length; i++){
+                    $("#battery").append('<option value="' + battery[i]["id"] + '">' + battery[i]["id"] + ". " + battery[i]["battery_administrator_full_name"] + '</option>');
+                }
+            }
+        });
+    });
+///////////////////////////////////////////////////////////////
+// COLUMN
+    $("#column").prop("disabled", true); 
+    $("#battery").change(function(){
+        var customer = $(this).val();
+        if(customer == ''){
+            $("#column").prop("disabled", true);
+        }else{
+            $("#column").show()
+            $("#column").prop("disabled", false);
+        }
+        $.ajax({
+            url: "/interventions/column",
+            method: "GET",  
+            dataType: "json",
+            data: {customer: customer},
+            error: function (xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            },
+            success: function (response) {
+                console.log(response);
+                var column = response["column"];
+                $("#column").empty();
+                $("#column").append('<option> Select Column </option>');
+                for(var i = 0; i < column.length; i++){
+                    $("#column").append('<option value="' + column[i]["id"] + '">' + column[i]["id"] + ". " + column[i]["column_administrator_full_name"] + '</option>');
+                }
+            }
+        });
+    });
+///////////////////////////////////////////////////////////////
+// EMPLOYEE
+    $("#employee").prop("disabled", true); 
+    $("#column").change(function(){
+        var customer = $(this).val();
+        if(customer == ''){
+            $("#employee").prop("disabled", true);
+        }else{
+            $("#employee").show()
+            $("#employee").prop("disabled", false);
+        }
+        $.ajax({
+            url: "/interventions/employee",
+            method: "GET",  
+            dataType: "json",
+            data: {customer: customer},
+            error: function (xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            },
+            success: function (response) {
+                console.log(response);
+                var employee = response["employee"];
+                $("#employee").empty();
+                $("#employee").append('<option> Select employee </option>');
+                for(var i = 0; i < employee.length; i++){
+                    $("#employee").append('<option value="' + employee[i]["id"] + '">' + employee[i]["id"] + ". " + employee[i]["employee_administrator_full_name"] + '</option>');
+                }
+            }
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+

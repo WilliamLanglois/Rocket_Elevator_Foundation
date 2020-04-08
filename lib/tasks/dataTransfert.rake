@@ -129,22 +129,29 @@ task intervention_seed: :environment do
    result = ["Success", "Failure", "Incomplete"]
    report = ["Its a good report", "This is a better report!", "This report is the best!"]
    status = ["Pending", "InProgress", "Interrupted", "Resumed", "Complete"]
+   customer = Customer.take(30)
+   building = Building.take(50)
+   battery = Battery.take(79)
+   column = Column.take(250)
+   elevator = Elevator.take(1358)
+   employee = Employee.take(21)
+
 
    20.times do
        random_date = Faker::Time.between_dates(from: Date.today - 1, to: Date.today - 1000, period: :all)
-       random_customer = rand(0..50)
-       random_building = rand(0..20)
-       random_battery = rand(0..20)
-       random_column = rand(0..80)
-       random_elevator = rand(0..484)
-       random_employee = rand(0..51)
+       random_customer = rand(0..30)
+       random_building = rand(0..50)
+       random_battery = rand(0..79)
+       random_column = rand(0..250)
+       random_elevator = rand(0..1358)
+       random_employee = rand(0..21)
        random_result = rand(0..2)
        random_status = rand(0..4)
 
        intervention= Intervention.create(
 
            id: i,
-           author_id: random_employee,
+           author_id: random_customer,
            customer_id: random_customer,
            building_id: random_building,
            battery_id: random_battery,
