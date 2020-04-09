@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   get 'intervention/column' => 'intervention#column'
 
   get 'intervention/employee' => 'intervention#employee'
+
+  get 'intervention/elevator' => 'intervention#elevator'
   
   post 'intervention' => 'intervention#create'
 

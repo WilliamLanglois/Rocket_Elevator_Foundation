@@ -3,6 +3,7 @@ class InterventionController < ApplicationController
 
   def new
     @customers = Customer.all
+    @employees = Employee.all
   end
 
   def building
@@ -21,24 +22,17 @@ class InterventionController < ApplicationController
 
   def column
     if params[:battery].present?
-        columns = Battery.where(battery_id:params[:battery])
+        columns = Column.where(battery_id:params[:battery])
         render json: columns
     end
   end
 
-  def employee
-    if params[:building].present?
-        @employee = Employee.where(column_id:params[:column])
-    else
-        @employee = Employee.all
-    end
-    respond_to do |format|
-        format.json {
-            render json: {employee: @employee}
-        }
+  def elevator
+    if params[:column].present?
+        elevators = Elevator.where(column_id:params[:column])
+        render json: elevators
     end
   end
-
 
    def create
     puts "hey im in the controller----------------------------"
@@ -46,17 +40,17 @@ class InterventionController < ApplicationController
     puts "caliss"
     @intervention = Intervention.new
         @intervention.author_id = "current_employee"
-        @intervention.customer_id = params[:customerID]
+        @intervention.customer_id = params['customerID']
         @intervention.building_id = params['buildingID']
-        @intervention.battery_id = params[:batteryID]
-        @intervention.column_id = params[:columnID]
-        @intervention.elevator_id = params[:elevatorID]
-        @intervention.employee_id = params[:employeeID]
-        @intervention.intervention_start_time = params[:start_of_intervention]
-        @intervention.intervention_end_time = params[:end_of_intervention]
-        @intervention.result = "Incompleted"
+        @intervention.battery_id = params['batteryID']
+        @intervention.column_id = params['columnID']
+        @intervention.elevator_id = params['elevatorID']
+        @intervention.employee_id = params['employeeID']
+        @intervention.intervention_start_time = nil
+        @intervention.intervention_end_time = nil
+        @intervention.result = "Incomplete"
         @intervention.report = ""
-        @intervention.status = "pending"
+        @intervention.status = "Pending"
 
     @intervention.save!
     function_send_ticket();

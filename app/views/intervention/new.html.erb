@@ -52,10 +52,21 @@ button submit<br>
 					<option value="0">--SELECT--</option>
 				</select>
 
-                <%# <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="columnID">Column </label><br>
-                <%= form.select(:column, Column.all.collect {|co| [co.id, co.battery_id]},  {prompt: "Select Column"}, {class: 'basicInfos'}) %><br> 
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="interventions[elevatorID]" id="elevator">Elevator </label><br>
+                <select id="elevators" name="elevatorID">
+					<option value="0">--SELECT--</option>
+				</select>
 
-                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="employeeID">Employee </label><br>
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="interventions[employeeID]">Employee </label><br>
+                <select id="employees" name="employeeID">
+					<option value="0">--SELECT--</option>
+                        <% @employees.each do |employee| %>
+                            <option value="<%= employee.id %>"><%= employee.firstName %><%= employee.lastName %></option>
+                        <%end%>
+				</select>
+
+
+                <%# <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="employeeID">Employee </label><br>
                 <%= form.select(:employee, Employee.all.collect {|e| [e.firstName, e.id]},  {prompt: "Select Employee"}, {class: 'basicInfos'}) %>
 
                 <br><br><br><input class="btn btn-danger btn-lg submitBtn intervention_form" type="submit" value="Add intervention" />
@@ -65,6 +76,11 @@ button submit<br>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 <Script>
+$("#building, #buildings").hide()
+$("#battery, #batteries").hide()
+$("#column, #columns").hide()
+$("#elevator, #elevators").hide()
+
 ///////////////////////////////////////////////////////////////
 // BUILDING
 $("#building").prop("disabled", true); 
@@ -74,6 +90,7 @@ $("#building").prop("disabled", true);
             $("#building").prop("disabled", true);
         }else{
             $("#building").show()
+            $("#buildings").show()
             $("#building").prop("disabled", false);
         }
         $.ajax({
@@ -87,6 +104,14 @@ $("#building").prop("disabled", true);
             success: function (buildings) {
                 console.log(buildings);
                 $("#buildings").empty();
+                $("#batteries").empty();
+                $("#columns").empty();
+                $("#elevators").empty();
+
+                $("#battery, #batteries").hide();
+                $("#column, #columns").hide()
+                $("#elevator, #elevators").hide()
+
                 $("#buildings").append('<option value="0">--SELECT--</option>');
                 buildings.forEach(building => {
                     $("#buildings").append('<option value="' + building.id + '">' + building.id + ". " + building.building_administrator_full_name + '</option>');
@@ -104,6 +129,7 @@ $("#battery").prop("disabled", true);
             $("#battery").prop("disabled", true);
         }else{
             $("#battery").show()
+            $("#batteries").show()
             $("#battery").prop("disabled", false);
         }
         $.ajax({
@@ -117,6 +143,11 @@ $("#battery").prop("disabled", true);
             success: function (batteries) {
                 console.log(batteries);
                 $("#batteries").empty();
+                $("#columns").empty();
+
+                $("#column, #columns").hide()
+                $("#elevator, #elevators").hide()
+
                 $("#batteries").append('<option value="0">--SELECT--</option>');
                 batteries.forEach(battery => {
                     $("#batteries").append('<option value="' + battery.id + '">' + battery.id + ". " + battery.operations_certificate + '</option>');
@@ -133,6 +164,7 @@ $("#column").prop("disabled", true);
             $("#column").prop("disabled", true);
         }else{
             $("#column").show()
+            $("#columns").show()
             $("#column").prop("disabled", false);
         }
         $.ajax({
@@ -146,6 +178,10 @@ $("#column").prop("disabled", true);
             success: function (columns) {
                 console.log(columns);
                 $("#columns").empty();
+                $("#elevators").empty();
+
+                $("#elevator, #elevators").hide()
+                
                 $("#columns").append('<option value="0">--SELECT--</option>');
                 columns.forEach(column => {
                     $("#columns").append('<option value="' + column.id + '">' + column.id + ". " + column.information + '</option>');
@@ -154,32 +190,32 @@ $("#column").prop("disabled", true);
         });
     });
 ///////////////////////////////////////////////////////////////
-// EMPLOYEE
-    $("#employee").prop("disabled", true); 
-    $("#column").change(function(){
-        var customer = $(this).val();
-        if(customer == ''){
-            $("#employee").prop("disabled", true);
+// ELEVATOR
+$("#elevator").prop("disabled", true); 
+    $("#columns").change(function(){
+        var column = $(this).val();
+        if(column == ''){
+            $("#elevator").prop("disabled", true);
         }else{
-            $("#employee").show()
-            $("#employee").prop("disabled", false);
+            $("#elevator").show()
+            $("#elevators").show()
+            $("#elevator").prop("disabled", false);
         }
         $.ajax({
-            url: "/intervention/employee",
+            url: "/intervention/elevator",
             method: "GET",  
             dataType: "json",
-            data: {customer: customer},
+            data: {column: column},
             error: function (xhr, status, error) {
                 console.error('AJAX Error: ' + status + error);
             },
-            success: function (response) {
-                console.log(response);
-                var employee = response["employee"];
-                $("#employee").empty();
-                $("#employee").append('<option> Select employee </option>');
-                for(var i = 0; i < employee.length; i++){
-                    $("#employee").append('<option value="' + employee[i]["id"] + '">' + employee[i]["id"] + ". " + employee[i]["employee_administrator_full_name"] + '</option>');
-                }
+            success: function (elevators) {
+                console.log(elevators);
+                $("#elevators").empty();
+                $("#elevators").append('<option value="0">--SELECT--</option>');
+                elevators.forEach(elevator => {
+                    $("#elevators").append('<option value="' + elevator.id + '">' + elevator.id + ". " + elevator.information + '</option>');
+                })
             }
         });
     });
