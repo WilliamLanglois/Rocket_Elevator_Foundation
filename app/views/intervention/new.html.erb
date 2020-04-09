@@ -57,7 +57,7 @@ button submit<br>
 					<option value="0">--SELECT--</option>
 				</select>
 
-                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="interventions[employeeID]">Employee </label><br>
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="interventions[employeeID]" id="employee">Employee </label><br>
                 <select id="employees" name="employeeID">
 					<option value="0">--SELECT--</option>
                         <% @employees.each do |employee| %>
@@ -80,6 +80,7 @@ $("#building, #buildings").hide()
 $("#battery, #batteries").hide()
 $("#column, #columns").hide()
 $("#elevator, #elevators").hide()
+$("#employee, #employees").hide()
 
 ///////////////////////////////////////////////////////////////
 // BUILDING
@@ -181,7 +182,7 @@ $("#column").prop("disabled", true);
                 $("#elevators").empty();
 
                 $("#elevator, #elevators").hide()
-                
+
                 $("#columns").append('<option value="0">--SELECT--</option>');
                 columns.forEach(column => {
                     $("#columns").append('<option value="' + column.id + '">' + column.id + ". " + column.information + '</option>');
@@ -211,6 +212,7 @@ $("#elevator").prop("disabled", true);
             },
             success: function (elevators) {
                 console.log(elevators);
+                $("#employee, #employees").hide()
                 $("#elevators").empty();
                 $("#elevators").append('<option value="0">--SELECT--</option>');
                 elevators.forEach(elevator => {
