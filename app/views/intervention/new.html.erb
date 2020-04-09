@@ -24,35 +24,51 @@ button submit<br>
 <section></section>
 
 
-<%= form_tag "/intervention_create", method: 'post' do %>
 <section>
 <div class="col-md-12 mx-auto text-center text-blue offset-md-3">
-            	<%= form_with model: @customer do|form| %>
-                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name=customerID> Customer </label><br>
-                <%= form.select(:customer, Customer.all.collect {|c| [c.contact_full_name, c.id]}, {prompt: "Select Customer"}, {class: 'form-control'}) %><br>
+            <%= form_with(url: "/intervention", method: "post") do |form| %>
+            
 
-                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="buildingID">Building </label><br>
-                <%= form.select(:building, Building.all.collect {|b| [b.id, b.customer_id]},  {prompt: "Select Building"}, {class: 'form-control'}) %><br>
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="interventions[customerID]">Customer </label><br>
+                <select id="customers" name="customerID">
+					<option value="0">--SELECT--</option>
+                        <% @customers.each do |customer| %>
+                            <option value="<%= customer.id %>"><%= customer.contact_full_name %></option>
+                        <%end%>
+				</select>
+
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="interventions[buildingID]" id="building">Building </label><br>
+                <select id="buildings" name="buildingID">
+					<option value="0">--SELECT--</option>
+				</select>
+
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="interventions[batteryID]" id="battery">Battery </label><br>
+                <select id="batteries" name="batteryID">
+					<option value="0">--SELECT--</option>
+				</select>
                 
-                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="battery_id">Battery </label><br>
-                <%= form.select(:battery, Battery.all.collect {|ba| [ba.id, ba.building_id]},  {prompt: "Select Battery"}, {class: 'form-control'}) %><br>
+                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="interventions[columnID]" id="column">Column </label><br>
+                <select id="columns" name="columnID">
+					<option value="0">--SELECT--</option>
+				</select>
 
-                <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="columnID">Column </label><br>
-                <%= form.select(:column, Column.all.collect {|co| [co.id, co.battery_id]},  {prompt: "Select Column"}, {class: 'form-control'}) %><br>
+                <%# <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="columnID">Column </label><br>
+                <%= form.select(:column, Column.all.collect {|co| [co.id, co.battery_id]},  {prompt: "Select Column"}, {class: 'basicInfos'}) %><br> 
 
                 <label class="col-md-12 mx-auto text-center text-red offset-md-3 h4" name="employeeID">Employee </label><br>
-                <%= form.select(:employee, Employee.all.collect {|e| [e.firstName, e.id]},  {prompt: "Select Employee"}, {class: 'form-control'}) %>
+                <%= form.select(:employee, Employee.all.collect {|e| [e.firstName, e.id]},  {prompt: "Select Employee"}, {class: 'basicInfos'}) %>
 
-                <br><br><br><input class="btn btn-danger btn-lg submitBtn submission_form" type="submit" value="Add intervention" />
-                <%end%>
+                <br><br><br><input class="btn btn-danger btn-lg submitBtn intervention_form" type="submit" value="Add intervention" />
+            <%end%>
 </section>
-<%end%>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 <Script>
 ///////////////////////////////////////////////////////////////
 // BUILDING
 $("#building").prop("disabled", true); 
-    $("#customer").change(function(){
+    $("#customers").change(function(){
         var customer = $(this).val();
         if(customer == ''){
             $("#building").prop("disabled", true);
@@ -61,82 +77,79 @@ $("#building").prop("disabled", true);
             $("#building").prop("disabled", false);
         }
         $.ajax({
-            url: "/interventions/building",
+            url: "/intervention/building",
             method: "GET",  
             dataType: "json",
             data: {customer: customer},
             error: function (xhr, status, error) {
                 console.error('AJAX Error: ' + status + error);
             },
-            success: function (response) {
-                console.log(response);
-                var building = response["building"];
-                $("#building").empty();
-                $("#building").append('<option> Select Building </option>');
-                for(var i = 0; i < building.length; i++){
-                    $("#building").append('<option value="' + building[i]["id"] + '">' + building[i]["id"] + ". " + building[i]["building_administrator_full_name"] + '</option>');
-                }
+            success: function (buildings) {
+                console.log(buildings);
+                $("#buildings").empty();
+                $("#buildings").append('<option value="0">--SELECT--</option>');
+                buildings.forEach(building => {
+                    $("#buildings").append('<option value="' + building.id + '">' + building.id + ". " + building.building_administrator_full_name + '</option>');
+                })
             }
         });
     });
 
 ///////////////////////////////////////////////////////////////
 // BATTERY
-    $("#battery").prop("disabled", true); 
-    $("#building").change(function(){
-        var customer = $(this).val();
-        if(customer == ''){
+$("#battery").prop("disabled", true); 
+    $("#buildings").change(function(){
+        var building = $(this).val();
+        if(building == ''){
             $("#battery").prop("disabled", true);
         }else{
             $("#battery").show()
             $("#battery").prop("disabled", false);
         }
         $.ajax({
-            url: "/interventions/battery",
+            url: "/intervention/battery",
             method: "GET",  
             dataType: "json",
-            data: {customer: customer},
+            data: {building: building},
             error: function (xhr, status, error) {
                 console.error('AJAX Error: ' + status + error);
             },
-            success: function (response) {
-                console.log(response);
-                var battery = response["battery"];
-                $("#battery").empty();
-                $("#battery").append('<option> Select Battery </option>');
-                for(var i = 0; i < battery.length; i++){
-                    $("#battery").append('<option value="' + battery[i]["id"] + '">' + battery[i]["id"] + ". " + battery[i]["battery_administrator_full_name"] + '</option>');
-                }
+            success: function (batteries) {
+                console.log(batteries);
+                $("#batteries").empty();
+                $("#batteries").append('<option value="0">--SELECT--</option>');
+                batteries.forEach(battery => {
+                    $("#batteries").append('<option value="' + battery.id + '">' + battery.id + ". " + battery.operations_certificate + '</option>');
+                })
             }
         });
     });
 ///////////////////////////////////////////////////////////////
 // COLUMN
-    $("#column").prop("disabled", true); 
-    $("#battery").change(function(){
-        var customer = $(this).val();
-        if(customer == ''){
+$("#column").prop("disabled", true); 
+    $("#batteries").change(function(){
+        var battery = $(this).val();
+        if(battery == ''){
             $("#column").prop("disabled", true);
         }else{
             $("#column").show()
             $("#column").prop("disabled", false);
         }
         $.ajax({
-            url: "/interventions/column",
+            url: "/intervention/column",
             method: "GET",  
             dataType: "json",
-            data: {customer: customer},
+            data: {battery: battery},
             error: function (xhr, status, error) {
                 console.error('AJAX Error: ' + status + error);
             },
-            success: function (response) {
-                console.log(response);
-                var column = response["column"];
-                $("#column").empty();
-                $("#column").append('<option> Select Column </option>');
-                for(var i = 0; i < column.length; i++){
-                    $("#column").append('<option value="' + column[i]["id"] + '">' + column[i]["id"] + ". " + column[i]["column_administrator_full_name"] + '</option>');
-                }
+            success: function (columns) {
+                console.log(columns);
+                $("#columns").empty();
+                $("#columns").append('<option value="0">--SELECT--</option>');
+                columns.forEach(column => {
+                    $("#columns").append('<option value="' + column.id + '">' + column.id + ". " + column.information + '</option>');
+                })
             }
         });
     });
@@ -152,7 +165,7 @@ $("#building").prop("disabled", true);
             $("#employee").prop("disabled", false);
         }
         $.ajax({
-            url: "/interventions/employee",
+            url: "/intervention/employee",
             method: "GET",  
             dataType: "json",
             data: {customer: customer},

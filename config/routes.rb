@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   get 'submission' => 'quotes#submission'
 
-  get 'intervention' => 'intervention#intervention_form'
+  get 'intervention' => 'intervention#new'
 
   post 'intervention_create' => 'intervention#create'
 
@@ -58,13 +58,15 @@ Rails.application.routes.draw do
   
   get 'dashboard' => 'pages#dashboard'
 
-  get 'interventions/building' => 'interventions#building'
+  get 'intervention/building' => 'intervention#building'
 
-  get 'interventions/battery' => 'interventions#battery'
+  get 'intervention/battery' => 'intervention#battery'
 
-  get 'interventions/column' => 'interventions#column'
+  get 'intervention/column' => 'intervention#column'
 
-  get 'interventions/employee' => 'interventions#employee'
+  get 'intervention/employee' => 'intervention#employee'
+  
+  post 'intervention' => 'intervention#create'
 
 
   resources :geolocations

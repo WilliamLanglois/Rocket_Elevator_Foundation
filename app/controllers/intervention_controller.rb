@@ -1,41 +1,28 @@
 class InterventionController < ApplicationController
   skip_before_action :verify_authenticity_token
+
+  def new
+    @customers = Customer.all
+  end
+
   def building
     if params[:customer].present?
-        @building = Building.where(customer_id:params[:customer])
-    else
-        @building = Building.all
-    end
-    respond_to do |format|
-        format.json {
-            render json: {building: @building}
-        }
+        buildings = Building.where(customer_id:params[:customer])
+        render json: buildings
     end
   end
 
   def battery
     if params[:building].present?
-        @battery = Battery.where(building_id:params[:building])
-    else
-        @battery = Battery.all
-    end
-    respond_to do |format|
-        format.json {
-            render json: {battery: @battery}
-        }
+        batteries = Battery.where(building_id:params[:building])
+        render json: batteries
     end
   end
 
   def column
-    if params[:building].present?
-        @column = Column.where(battery_id:params[:battery])
-    else
-        @column = Column.all
-    end
-    respond_to do |format|
-        format.json {
-            render json: {column: @column}
-        }
+    if params[:battery].present?
+        columns = Battery.where(battery_id:params[:battery])
+        render json: columns
     end
   end
 
@@ -54,11 +41,13 @@ class InterventionController < ApplicationController
 
 
    def create
-puts"im in the create def of @intervention controller-----------------------------------------------------------------"
+    puts "hey im in the controller----------------------------"
+    puts (params[:customerID])
+    puts "caliss"
     @intervention = Intervention.new
         @intervention.author_id = "current_employee"
         @intervention.customer_id = params[:customerID]
-        @intervention.building_id = params[:buildingID]
+        @intervention.building_id = params['buildingID']
         @intervention.battery_id = params[:batteryID]
         @intervention.column_id = params[:columnID]
         @intervention.elevator_id = params[:elevatorID]
