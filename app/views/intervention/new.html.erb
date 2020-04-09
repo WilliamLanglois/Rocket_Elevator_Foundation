@@ -212,7 +212,7 @@ $("#elevator").prop("disabled", true);
             },
             success: function (elevators) {
                 console.log(elevators);
-                $("#employee, #employees").hide()
+                $("#employee, #employees").show()
                 $("#elevators").empty();
                 $("#elevators").append('<option value="0">--SELECT--</option>');
                 elevators.forEach(elevator => {
