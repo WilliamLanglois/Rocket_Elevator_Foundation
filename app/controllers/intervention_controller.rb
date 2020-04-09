@@ -36,10 +36,8 @@ class InterventionController < ApplicationController
 
    def create
     puts "hey im in the controller----------------------------"
-    puts (params[:customerID])
-    puts "caliss"
     @intervention = Intervention.new
-        @intervention.author_id = "current_employee"
+        @intervention.author_id = current_user.id
         @intervention.customer_id = params['customerID']
         @intervention.building_id = params['buildingID']
         @intervention.battery_id = params['batteryID']
