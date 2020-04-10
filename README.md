@@ -1,8 +1,8 @@
 
 # Rocket_Elevators_Controllers
-Week 7 : THE API
+Week 9 : Consolidation
 
-Site is now online at http://rocketelevatorsjm.club/.
+Site is now online at http://www.rocketelevatorswl.online/
 
 API : Twilio, Slack, Dropbox, Google Maps, DropBox, SendGrid, IBM Watson et ZenDesk.
 
@@ -28,12 +28,20 @@ When you are logged as a customer, you can go to the page customer dashboard and
 If you try to have a quotes while being login, you will that some of yours informations are already there.
 
 
-Admin :    jonathanmurray1@msn.com/////123456 or felix@homtail.com///////123456
+Admin :
 
-If you go to the admin page (only avalaible if you are also an employee) , you can see all the informations in the SQL DB. You can also check for some BI information in the the dashboard blazer with the link chart or by using the srolldown button on the normal pages.
+email: Your codeboxx email
+password: patate
 
-Finally, you can edit your informations of the user profil likes last name, first name, compagny, password ect.
+If you go to the admin page (only avalaible if you are also an employee, wich every codeboxx coachs are) , you can see all the informations in the SQL DB. You can also check for some BI information in the the dashboard blazer with the link chart or by using the srolldown button on the normal pages.
+
+Furthermore, you can edit your informations of the user profil likes last name, first name, compagny, password ect.
 
 
-To send the data from sql to postgresql DB use :  rake dataTransfert:transfer_for_fact
+To send the data from sql to postgresql DB use :  rake transfer_for_fact
+
+
+Finally for the Rest Api, its deployed on azure at this url: https://restapiwl.azurewebsites.net
+If you want to see all the intervention, add /api/interventions at the end of the url
+For de demonstration, it'll be done via postman as you can see in the video that it work fine.
 
