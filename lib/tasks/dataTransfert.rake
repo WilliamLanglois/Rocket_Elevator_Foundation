@@ -6,7 +6,7 @@ require'faker'
 task create_pg_table: :environment do
 # In terminal: $ rake create_pg_table
 #conn = PG::Connection.open(host: "localhost", port: 5432, dbname:"rocket_elevators_information_system_development_psql", user:"postgres", password:"root")
-# conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=jonathanMurray user=codeboxx password=Codeboxx1!");
+# conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=WilliamLanglois user=codeboxx password=Codeboxx1!");
 conn = PG::Connection.open(host: "localhost", port: 5432, dbname:"postgres", user:"postgres", password:"poiu")
 
 conn.exec("
@@ -49,7 +49,7 @@ end
    task transfer_for_fact: :environment do
 
       #   conn = PG::Connection.open(host: "localhost", port: 5432, dbname:"rocket_elevators_information_system_development_psql", user:"postgres", password:"root")
-         # conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=jonathanMurray user=codeboxx password=Codeboxx1!");
+         # conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=WilliamLanglois user=codeboxx password=Codeboxx1!");
          conn = PG::Connection.open(host: "localhost", port: 5432, dbname:"postgres", user:"postgres", password:"poiu")
 
       conn.exec ("TRUNCATE factquotes RESTART IDENTITY")
@@ -99,6 +99,49 @@ end
    end
 end
 
+task codeboxx_user: :environment do
+   user_firstname = ["Nicolas", "Nadya", "Martin","Mathieu", "Remi", "Mathieu", "Serge", "David", "Mathieu", "Thommas"]
+   user_lastname = ["Genest", "Fortier", "Chantal", "Houde", "Gagnon", "Lefrancois", "Savoie", "Boutin", "Lortie", "Carrier"]
+   user_function = ["Comm Rep", "Director", "Assistant director", "Captain", "Engineer", "Engineer", "Engineer", "Engineer", "Engineer", "Engineer"]
+   user_email = ["nicolas.genest@codeboxx.biz", "nadya.fortier@codeboxx.biz", "martin.chantal@codeboxx.biz	", "mathieu.houde@codeboxx.biz", "remi.gagnon@codeboxx.biz", "mathieu.lefrancois@codeboxx.biz", "serge.savoie@codeboxx.biz", "david.boutin@codeboxx.biz", "mathieu.lortie@codeboxx.biz", "thomas.carrier@codeboxx.biz"]
+   i = 0
+   
+   10.times do
+       user= User.create(
+           email: user_email[i],
+           firstName: user_firstname[i],
+           job_title: user_function[i],
+           lastName: user_lastname[i],
+           password: "patate"
+       )
+       i = i + 1
+       
+       user.save!
+   end
+end
+
+task codeboxx_employee: :environment do
+   employee_firstname = ["Nicolas", "Nadya", "Martin","Mathieu", "Remi", "Mathieu", "Serge", "David", "Mathieu", "Thommas"]
+   employee_lastname = ["Genest", "Fortier", "Chantal", "Houde", "Gagnon", "Lefrancois", "Savoie", "Boutin", "Lortie", "Carrier"]
+   employee_function = ["Comm Rep", "Director", "Assistant director", "Captain", "Engineer", "Engineer", "Engineer", "Engineer", "Engineer", "Engineer"]
+   employee_email = ["nicolas.genest@codeboxx.biz", "nadya.fortier@codeboxx.biz", "martin.chantal@codeboxx.biz	", "mathieu.houde@codeboxx.biz", "remi.gagnon@codeboxx.biz", "mathieu.lefrancois@codeboxx.biz", "serge.savoie@codeboxx.biz", "david.boutin@codeboxx.biz", "mathieu.lortie@codeboxx.biz", "thomas.carrier@codeboxx.biz"]
+   i = 0
+   id = 52
+   10.times do
+       employee= Employee.create(
+           user_id: id,
+           email: employee_email[i],
+           firstName: employee_firstname[i],
+           job_title: employee_function[i],
+           lastName: employee_lastname[i],
+           password: "patate"
+       )
+       i = i + 1
+       id = id +1
+       employee.save!
+   end
+end
+
 
 
 
@@ -107,7 +150,7 @@ desc "Create Fact Intervention Table"
 # In terminal: $ rake create_fact_intervention
 
 
-conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=jonathanMurray user=codeboxx password=Codeboxx1!");
+conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=WilliamLanglois user=codeboxx password=Codeboxx1!");
    conn.exec("
    CREATE TABLE FactIntervention(
       employee_ID INT,
@@ -177,7 +220,7 @@ end
 task data_fact_intervention: :environment do
 desc "Send data to Fact Intervention Table"
 
-conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=jonathanMurray user=codeboxx password=Codeboxx1!");
+conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=WilliamLanglois user=codeboxx password=Codeboxx1!");
    conn.exec ("TRUNCATE factintervention RESTART IDENTITY")
 # faire un rand 0-4 = x
 # status[x]
