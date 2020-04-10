@@ -51,10 +51,6 @@ module SendGridApi
 
 
 
-  #  mail = SendGridMailer::Mailer.new
-  #  subject = "Leads create"
-  #  to = "jonathanmurray1@msn.com"
-  #  message = "test message with image"
-  #  mail.basic_mail(subject, to, message)
+
 
 
