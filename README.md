@@ -1,11 +1,8 @@
 Week 9 : Consolidation
 
-<<<<<<< HEAD
-=======
-# Rocket_Elevators_Controllers
+# Rocket_Elevators_foundation
 Week 9 : Consolidation
 
->>>>>>> 4f47df4c8eef16d27b59c2a154f5ab62e77b1687
 Site is now online at http://www.rocketelevatorswl.online/
 
 API : Twilio, Slack, Dropbox, Google Maps, DropBox, SendGrid, IBM Watson et ZenDesk.
@@ -32,8 +29,6 @@ If you try to have a quotes while being login, you will that some of yours infor
 
 Admin :
 
-Admin :
-
 email: Your codeboxx email
 password: patate
 
@@ -46,6 +41,7 @@ To send the data from sql to postgresql DB use :  rake transfer_for_fact
 
 
 Finally for the Rest Api, its deployed on azure at this url: https://restapiwl.azurewebsites.net
+The git repository for it is : https://github.com/WilliamLanglois/RestApi
 If you want to see all the intervention, add /api/interventions at the end of the url
 For de demonstration, it'll be done via postman as you can see in the video that it work fine.
 
