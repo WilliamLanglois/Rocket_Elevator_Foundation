@@ -78,9 +78,9 @@ end
   def function_send_ticket
       
     @client = ZendeskAPI::Client.new do |config|
-      config.url = "https://supportRocket.zendesk.com/api/v2" # e.g. https://mydesk.zendesk.com/api/v2
+      config.url = "https://williamlanglois.zendesk.com/api/v2" # e.g. https://mydesk.zendesk.com/api/v2
       # Basic / Token Authentication
-      config.username = "marc_travail@hotmail.com"
+      config.username = ENV["my_email"]
       # config.token = "Zendesk_Token"
       config.token = ENV["Zendesk_Token"]
     end

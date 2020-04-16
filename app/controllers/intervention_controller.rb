@@ -60,7 +60,7 @@ class InterventionController < ApplicationController
     @client = ZendeskAPI::Client.new do |config|
       config.url = "https://williamlanglois.zendesk.com/api/v2" # e.g. https://mydesk.zendesk.com/api/v2
       # Basic / Token Authentication
-      config.username = "will_langlois@hotmail.com"
+      config.username = ENV["my_email"]
       # config.token = "Zendesk_Token"
       config.token = ENV["Zendesk_Token"]
     end

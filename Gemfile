@@ -106,3 +106,6 @@ gem 'twilio-ruby'
 gem 'ibm_watson', git: 'https://github.com/watson-developer-cloud/ruby-sdk', branch: 'master'
 gem 'dropbox_api'
 
+gem "brakeman"
+gem 'strong_password', '~> 0.0.8'
+

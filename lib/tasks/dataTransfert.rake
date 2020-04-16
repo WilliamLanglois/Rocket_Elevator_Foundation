@@ -4,9 +4,6 @@ require'faker'
 
 # TASK FOR CREATION OF DB AND TABLE IN postgresql
 task create_pg_table: :environment do
-# In terminal: $ rake create_pg_table
-#conn = PG::Connection.open(host: "localhost", port: 5432, dbname:"rocket_elevators_information_system_development_psql", user:"postgres", password:"root")
-# conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=WilliamLanglois user=codeboxx password=Codeboxx1!");
 conn = PG::Connection.open(host: "localhost", port: 5432, dbname:"postgres", user:"postgres", password:"poiu")
 
 conn.exec("
@@ -48,8 +45,6 @@ end
 # In terminal: $ rake transfer_for_fact
    task transfer_for_fact: :environment do
 
-      #   conn = PG::Connection.open(host: "localhost", port: 5432, dbname:"rocket_elevators_information_system_development_psql", user:"postgres", password:"root")
-         # conn = PG.connect("host=codeboxx-postgresql.cq6zrczewpu2.us-east-1.rds.amazonaws.com port=5432 dbname=WilliamLanglois user=codeboxx password=Codeboxx1!");
          conn = PG::Connection.open(host: "localhost", port: 5432, dbname:"postgres", user:"postgres", password:"poiu")
 
       conn.exec ("TRUNCATE factquotes RESTART IDENTITY")
@@ -112,7 +107,7 @@ task codeboxx_user: :environment do
            firstName: user_firstname[i],
            job_title: user_function[i],
            lastName: user_lastname[i],
-           password: "patate"
+           password: ENV["password_for_admin"]
        )
        i = i + 1
        
@@ -134,7 +129,7 @@ task codeboxx_employee: :environment do
            firstName: employee_firstname[i],
            job_title: employee_function[i],
            lastName: employee_lastname[i],
-           password: "patate"
+           password: ENV["password_for_admin"]
        )
        i = i + 1
        id = id +1
