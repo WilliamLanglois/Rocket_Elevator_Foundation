@@ -45,3 +45,5 @@ The git repository for it is : https://github.com/WilliamLanglois/RestApi
 If you want to see all the intervention, add /api/interventions at the end of the url
 For de demonstration, it'll be done via postman as you can see in the video that it work fine.
 
+
+For the security assesment the link to it is : https://docs.google.com/document/d/1CqUaAFo-6QHvP227iyAqa5yqB33LyNjQC10QZaE8gFE/edit
