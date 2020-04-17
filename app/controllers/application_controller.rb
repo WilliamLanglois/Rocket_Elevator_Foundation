@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
       # depending on your auth, something like...
       redirect_to main_app.root_path unless current_user.is_employee(current_user.email)
     end
+    
+    def authenticate_user!
+      if user_signed_in?
+        super
+      else
+        redirect_to "/index", notice: "Please Login to view that page!"
+      end
+    end
   
 
     protect_from_forgery with: :exception
