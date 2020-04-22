@@ -29,14 +29,12 @@ describe Streamer do
                 expect(Streamer.temperature()).to_not eq(nil)
             end
         end
-    end
-end
-
-describe Bonus do
-    describe "getting something" do
-        it "getting something from database..." do
-            expect(Bonus.gettingSomething()).to_not eq(nil)
+        describe "getting something" do
+            it "getting something from database..." do
+                expect(Streamer.gettingSomething()).to_not eq(nil)
+            end
         end
     end
 end
+
 

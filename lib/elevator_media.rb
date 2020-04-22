@@ -1,5 +1,7 @@
 require "open-uri"
 require 'open_weather'
+require 'mysql2'
+
 class Streamer
 
     def self.add(input)
@@ -32,17 +34,18 @@ class Streamer
          puts info
          info
     end
-end
-
-class Bonus
-    def self.gettingSomething()
-        b_rand = Building.order("RAND()").first
-        b_ad = b_rand.address
-        b_city = b_ad.city
-        puts b_city
-        b_city
+    def self.gettingSomething() 
+        client = Mysql2::Client.new(:host => "codeboxx.cq6zrczewpu2.us-east-1.rds.amazonaws.com", :username => "codeboxx", :password => "Codeboxx1!", :database => "WilliamLanglois")
+        results = client.query("
+            SELECT city FROM buildings, addresses WHERE buildings.address_id = addresses.id
+            ORDER BY RAND()
+            LIMIT 1")
+        
+        puts results.first
+        results
     end
 end
+
 
 
 
