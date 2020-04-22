@@ -109,3 +109,7 @@ gem 'dropbox_api'
 gem "brakeman"
 gem 'strong_password', '~> 0.0.8'
 
+gem 'rspec', '~> 3.5'
+gem 'nokogiri', '~> 1.6', '>= 1.6.8'
+gem 'open-weather'
+
