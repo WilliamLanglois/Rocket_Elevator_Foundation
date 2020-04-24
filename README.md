@@ -1,7 +1,7 @@
-Week 9 : Consolidation
+Week 11 : TDD
 
 # Rocket_Elevators_foundation
-Week 9 : Consolidation
+Week 11 : TDD
 
 Site is now online at http://www.rocketelevatorswl.online/
 
@@ -47,3 +47,14 @@ For de demonstration, it'll be done via postman as you can see in the video that
 
 
 For the security assesment the link to it is : https://docs.google.com/document/d/1CqUaAFo-6QHvP227iyAqa5yqB33LyNjQC10QZaE8gFE/edit
+
+To run the test for the delivrable you can put in the terminal:
+
+    rspec ./spec/elevator_media_spec.rb
+
+It will show some information in a string between some div tag
+
+
+If you want to run it and see the bonus test and see more details, you can put in the terminal:
+
+    bundle exec rspec --format documentation 

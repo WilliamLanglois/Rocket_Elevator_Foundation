@@ -34,15 +34,15 @@ describe Streamer do
         #     end
         # end
 # ------------------------------------------ TEMPERATURE --------------------------------------------------------
-        # context "temperature giver" do
-        #     it "supose to give the temperature package" do
-        #         expect(Streamer.temperature()).to_not eq(nil)
-        #     end
+        context "temperature giver" do
+            it "supose to give the temperature package" do
+                expect(Streamer.temperature()).to_not eq(nil)
+            end
         
-        #     it "supose to give the temperature with a string" do
-        #         expect(Streamer.temperature()).to be_a(String)
-        #     end
-        # end
+            it "supose to give the temperature with a string" do
+                expect(Streamer.temperature()).to be_a(String)
+            end
+        end
 # ------------------------------------------ FUN FACT (RANDOM CITY) --------------------------------------------------------
         describe "getting city from random building" do
             it "getting something from database... in a package form" do

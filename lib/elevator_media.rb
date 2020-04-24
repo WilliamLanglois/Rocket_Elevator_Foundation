@@ -30,12 +30,12 @@ class Streamer
         end
     end
 # ------------------------------------------ GETTING TEMPERATURE --------------------------------------------------------
-    # def self.temperature()
-    #     options = { units: "metric", APPID: '802152fb9efde252021d2686603098f9' }
-    #     # get current weather by city name
-    #      info = OpenWeather::Current.city("Québec, CA", options)
-    #      return "#{info}"
-    # end
+    def self.temperature()
+        options = { units: "metric", APPID: '802152fb9efde252021d2686603098f9' }
+        # get current weather by city name
+         info = OpenWeather::Current.city("Québec, CA", options)
+         return "The prevision for Quebec city today is #{info["weather"]}"
+    end
 # ------------------------------------------ GETTING RANDOM BUILDING CITY --------------------------------------------------------
     def self.gettingRandomCityFromMYSQL() 
         client = Mysql2::Client.new(:host => "codeboxx.cq6zrczewpu2.us-east-1.rds.amazonaws.com", :username => "codeboxx", :password => "Codeboxx1!", :database => "WilliamLanglois")
@@ -82,7 +82,7 @@ class Streamer
         end
 # ------------------------------------------ GETTING CONTENT --------------------------------------------------------
     def self.getcontent()
-        # puts "<div> #{temperature()} </div>"
+        puts "<div> #{temperature()} </div>"
         puts "<div> #{gettingBusinessNameFromPG()} </div>"
         puts "<div> #{gettingRandomCityFromMYSQL()} </div>"
         puts "<div> #{gettingFunFact()} </div>"
