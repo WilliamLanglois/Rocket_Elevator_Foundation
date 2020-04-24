@@ -38,8 +38,7 @@ describe Streamer do
         #     it "supose to give the temperature package" do
         #         expect(Streamer.temperature()).to_not eq(nil)
         #     end
-        # end
-        # context "temperature giver" do
+        
         #     it "supose to give the temperature with a string" do
         #         expect(Streamer.temperature()).to be_a(String)
         #     end
@@ -49,8 +48,7 @@ describe Streamer do
             it "getting something from database... in a package form" do
                 expect(Streamer.gettingRandomCityFromMYSQL()).to_not eq(nil)
             end
-        end
-        describe "getting city from random building" do
+        
             it "getting something from database... in a string" do
                 expect(Streamer.gettingRandomCityFromMYSQL()).to be_a(String)
             end
@@ -60,13 +58,11 @@ describe Streamer do
             it "test if we can connect to the postgres db" do
                 expect(Streamer.gettingBusinessNameFromPG()).to_not eq(nil)
             end
-        end
-        describe "connection au gem pg" do
+        
             it "test if we can go inside the db" do
                 expect(Streamer.gettingBusinessNameFromPG()).to_not eq(nil)
             end
-        end
-        describe "connection au gem pg" do
+        
             it "test if we can go fetch data from the table" do
                 expect(Streamer.gettingBusinessNameFromPG()).to be_a(String)
             end
@@ -76,22 +72,35 @@ describe Streamer do
             it "test if we can connect to mysql db" do
                 expect(Streamer.gettingFunFact()).to_not eq(nil)
             end
-        end
-        describe "fun fact about us" do
+        
             it "test if we can go inside a table" do
                 expect(Streamer.gettingFunFact()).to_not eq(nil)
             end
-        end
-        describe "fun fact about us" do
+        
             it "test if we can fetch data from a table" do
                 expect(Streamer.gettingFunFact()).to_not eq(nil)
             end
-        end
-        describe "fun fact about us" do
+        
             it "test if we can fetch data from a table as a string" do
                 expect(Streamer.gettingFunFact()).to be_a(String)
             end
         end
+# ------------------------------------------ GETTING SUPERHERO --------------------------------------------------------
+        describe "Getting superhero name" do
+            it "supose to give you the superhero name" do
+                expect(Streamer.getsuperhero()).to be_a(String)
+            end
+        end
+
+# ------------------------------------------ TEST OF CONTROLLER --------------------------------------------------------
+        # describe "page controller" do
+        #     it "test if page controller work" do
+        #         expect(PagesController.create()).to_not eq(nil)
+        #     end
+        # end        
+
+
+
 
 
     end

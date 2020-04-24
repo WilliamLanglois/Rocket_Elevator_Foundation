@@ -70,15 +70,23 @@ class Streamer
         # puts results_employees.count
         # puts results_elevators.count
         # puts results_buildings.count
-        return " There is acutally #{results_employees.count} employees working on #{results_elevators.count} elevators in #{results_buildings.count} differents buildings!"
+        return "There is acutally #{results_employees.count} employees working on #{results_elevators.count} elevators in #{results_buildings.count} differents buildings!"
     end
 
+# ------------------------------------------ GETTING SUPERHERO --------------------------------------------------------
+        def self.getsuperhero()
+            testurl =  Net::HTTP.get(URI("https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/id/28.json"))
+                superhero = JSON.parse(testurl)
+                # puts superhero["name"]
+                return superhero["name"]
+        end
 # ------------------------------------------ GETTING CONTENT --------------------------------------------------------
     def self.getcontent()
         # puts "<div> #{temperature()} </div>"
         puts "<div> #{gettingBusinessNameFromPG()} </div>"
         puts "<div> #{gettingRandomCityFromMYSQL()} </div>"
         puts "<div> #{gettingFunFact()} </div>"
+        puts "<div> #{getsuperhero()} </div>"
         return "<div> #{gettingFunFact()} </div>"
     end
 end
