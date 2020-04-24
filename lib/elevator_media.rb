@@ -6,29 +6,29 @@ require'pg'
 class Streamer
 
 # ------------------------------------------ FIRST TEST --------------------------------------------------------
-    def self.add(input)
-        input
-    end
+    # def self.add(input)
+    #     input
+    # end
 # ------------------------------------------ GETTING AN IMAGE FROM THE APP --------------------------------------------------------
-    def self.realcontent()
-        "app/assets/images/rocket.png"
-    end
+    # def self.realcontent()
+    #     "app/assets/images/rocket.png"
+    # end
 # ------------------------------------------ GETTING AN IMAGE FROM INTERNET 1 --------------------------------------------------------
-    def self.muchocontent()
-        open("https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/test.original.jpg") do |image|
-            File.open("./test.jpg", "wb") do |file|
-                file.write(image.read)
-            end
-        end
-    end
+    # def self.muchocontent()
+    #     open("https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/test.original.jpg") do |image|
+    #         File.open("./test.jpg", "wb") do |file|
+    #             file.write(image.read)
+    #         end
+    #     end
+    # end
 # ------------------------------------------ GETTING AN IMAGE FROM INTERNET 2 --------------------------------------------------------
-    def self.elevatorcontent()
-        open("https://www.brickunderground.com/sites/default/files/styles/blog_primary_image/public/blog/images/iStock-1150510276.jpg") do |image|
-            File.open("./elevator_photo.jpg", "wb") do |file|
-                file.write(image.read)
-            end
-        end
-    end
+    # def self.elevatorcontent()
+    #     open("https://www.brickunderground.com/sites/default/files/styles/blog_primary_image/public/blog/images/iStock-1150510276.jpg") do |image|
+    #         File.open("./elevator_photo.jpg", "wb") do |file|
+    #             file.write(image.read)
+    #         end
+    #     end
+    # end
 # ------------------------------------------ GETTING TEMPERATURE --------------------------------------------------------
     def self.temperature()
         options = { units: "metric", APPID: '802152fb9efde252021d2686603098f9' }

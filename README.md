@@ -58,3 +58,7 @@ It will show some information in a string between some div tag
 If you want to run it and see the bonus test and see more details, you can put in the terminal:
 
     bundle exec rspec --format documentation 
+
+If you want to run the test for python you can put in the terminal:
+
+    pytest

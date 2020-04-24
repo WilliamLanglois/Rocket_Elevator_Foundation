@@ -92,17 +92,6 @@ describe Streamer do
             end
         end
 
-# ------------------------------------------ TEST OF CONTROLLER --------------------------------------------------------
-        # describe "page controller" do
-        #     it "test if page controller work" do
-        #         expect(PagesController.create()).to_not eq(nil)
-        #     end
-        # end        
-
-
-
-
-
     end
 end
 
