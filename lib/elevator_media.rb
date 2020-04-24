@@ -87,7 +87,7 @@ class Streamer
         puts "<div> #{gettingRandomCityFromMYSQL()} </div>"
         puts "<div> #{gettingFunFact()} </div>"
         puts "<div> #{getsuperhero()} </div>"
-        return "<div> #{gettingFunFact()} </div>"
+        return "<div> #{temperature()} </div>"
     end
 end
 

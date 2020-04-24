@@ -50,7 +50,7 @@ require 'rails_helper'
 
 # Since there is no require column for the lead they should all be true even if the lead is not complete
     describe "LEAD" do
-      context 'validation tests for creatin a new Lead' do
+      context 'validation tests for creating a new Lead' do
         it 'test the full_name param' do
             lead = Lead.new(full_name: 'William Langlois').save
             expect(lead).to eq(true)
@@ -67,6 +67,36 @@ require 'rails_helper'
         end 
       end
     end
+
+# ------------------------------------------ CREATING A NEW QUOTE --------------------------------------------------------
+
+# Since there is no require column for the lead they should all be true even if the quote is not complete
+
+    describe "QUOTE" do
+      context 'validation tests for creating a new Quote' do
+        it 'test the firstName param' do
+            quote = Quote.new(firstName: 'William Langlois').save
+            expect(quote).to eq(true)
+        end 
+      
+        it 'test the phoneNumber param' do
+          quote = Quote.new(phoneNumber: '418-123-4567').save
+            expect(quote).to eq(true)
+        end 
+
+        it 'test the email param' do
+          quote = Quote.new(email: 'test@hotmail.com').save
+            expect(quote).to eq(true)
+        end 
+      
+        it 'test the email param' do
+          quote = Quote.new(firstName: 'William Langlois', phoneNumber: '418-123-4567',
+              companyName: 'Coder en pyjama inc', email: 'test@hotmail.com').save
+            expect(quote).to eq(true)
+        end 
+      end
+    end
+
 
 # ------------------------------------------ CREATING A NEW USER --------------------------------------------------------
 
