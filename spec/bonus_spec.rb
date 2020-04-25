@@ -136,16 +136,16 @@ RSpec.describe PagesController, :type => :controller do
   context "creating a lead" do
     it "Controller test for Lead" do
       params  =  {
-          :full_name=> "Jo",
-          :business_name=> "Murray",
-          :email=> "jonat@hotmail.com",
-          :phone=> "555-223-2323",
-          :project_name=> "Alpha",
-          :project_description=> "Big house",
+          :full_name=> "Uno Testo",
+          :business_name=> "The testeur cie",
+          :email=> "test@hotmail.com",
+          :phone=> "123-456-7890",
+          :project_name=> "Project",
+          :project_description=> "Big projoect",
           :department=> "Residential",
-          :message=> "test",
-          :file_attachment=> "Hello",
-          :file_name=> "World",
+          :message=> "this is a test",
+          :file_attachment=> "attachment",
+          :file_name=> "this is the name",
           }
           post(:create, params: params)
           expect(response.code).to eq "302"
