@@ -5,7 +5,7 @@ class PagesController < ApplicationController
 
   before_action :authenticate_user!, only: [:dashboard]
 
-  after_action :sendEmail, :function_send_ticket, only: [:create]
+  # after_action :sendEmail, :function_send_ticket, only: [:create]
 
 
   
@@ -32,7 +32,7 @@ class PagesController < ApplicationController
           department: params[:contact_department],
           message: params[:contact_message],
           file_attachment: file_attachment,
-          file_name:  params[:attached_file].original_filename
+          file_name:  params[:attached_file] #.original_filename
         )
     redirect_to "/index"
   end
@@ -75,22 +75,22 @@ end
 
 end
 
-  def function_send_ticket
+  # def function_send_ticket
       
-    @client = ZendeskAPI::Client.new do |config|
-      config.url = "https://williamlanglois.zendesk.com/api/v2" # e.g. https://mydesk.zendesk.com/api/v2
-      # Basic / Token Authentication
-      config.username = ENV["my_email"]
-      # config.token = "Zendesk_Token"
-      config.token = ENV["Zendesk_Token"]
-    end
+  #   @client = ZendeskAPI::Client.new do |config|
+  #     config.url = "https://williamlanglois.zendesk.com/api/v2" # e.g. https://mydesk.zendesk.com/api/v2
+  #     # Basic / Token Authentication
+  #     config.username = ENV["my_email"]
+  #     # config.token = "Zendesk_Token"
+  #     config.token = ENV["Zendesk_Token"]
+  #   end
 
-    ZendeskAPI::Ticket.create!(@client,
-      :subject => "#{@lead.full_name} from #{@lead.business_name}",
-      :description => "Create Ticket",
-      :comment =>{ :value =>
-      "The contact #{@lead.full_name} from company #{@lead.business_name} can be reached at email #{@lead.email} and at phone number #{@lead.phone}. #{@lead.department} department has a project named #{@lead.project_name} which would require contribution from Rocket Elevators."},
-      :type => 'question',
-      :priority => "urgent")
-  end
+  #   ZendeskAPI::Ticket.create!(@client,
+  #     :subject => "#{@lead.full_name} from #{@lead.business_name}",
+  #     :description => "Create Ticket",
+  #     :comment =>{ :value =>
+  #     "The contact #{@lead.full_name} from company #{@lead.business_name} can be reached at email #{@lead.email} and at phone number #{@lead.phone}. #{@lead.department} department has a project named #{@lead.project_name} which would require contribution from Rocket Elevators."},
+  #     :type => 'question',
+  #     :priority => "urgent")
+  # end
 

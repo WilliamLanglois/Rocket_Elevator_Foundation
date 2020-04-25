@@ -128,3 +128,27 @@ require 'rails_helper'
       end
     end
   end
+# ------------------------------------------ CREATING A NEW LEAD --------------------------------------------------------
+
+# As for this test, i commented the zendesk part in the controller since my token was expired... 
+
+RSpec.describe PagesController, :type => :controller do
+  context "creating a lead" do
+    it "Controller test for Lead" do
+      params  =  {
+          :full_name=> "Jo",
+          :business_name=> "Murray",
+          :email=> "jonat@hotmail.com",
+          :phone=> "555-223-2323",
+          :project_name=> "Alpha",
+          :project_description=> "Big house",
+          :department=> "Residential",
+          :message=> "test",
+          :file_attachment=> "Hello",
+          :file_name=> "World",
+          }
+          post(:create, params: params)
+          expect(response.code).to eq "302"
+      end
+    end
+end
