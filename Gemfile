@@ -113,6 +113,7 @@ gem 'rspec', '~> 3.5'
 gem 'rspec-rails', '~> 3.0'
 gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 gem 'open-weather'
+gem 'newrelic_rpm'
 
 
 
