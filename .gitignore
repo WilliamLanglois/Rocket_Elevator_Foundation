@@ -24,6 +24,7 @@
 /config/application.yml
 /config/blazer.yml
 /config/database.yml
+/config/newrelic.yml
 /lib/tasks/dataTranfert.rake
 
 
