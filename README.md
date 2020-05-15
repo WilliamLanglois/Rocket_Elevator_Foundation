@@ -1,7 +1,4 @@
-Week 11 : TDD
-
 # Rocket_Elevators_foundation
-Week 11 : TDD
 
 Site is now online at http://www.rocketelevatorswl.online/
 
